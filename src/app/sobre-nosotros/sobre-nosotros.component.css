@@ -1,0 +1,41 @@
+/*Clases css3 para index.php*/
+
+body
+{
+    background:grey;
+    color:white;
+    font-family:"Courier New", Helvetica, Arial;
+    font-size:16px;
+    margin:0;
+}
+
+#main
+{
+    background:lightgray;
+    margin:0 auto;
+}
+
+#website 
+{
+	color: #333;
+	margin: 0 auto;
+	padding: 1em 0;
+	width: 95%;
+}
+
+#website article
+{
+	background-color: #fff;
+	border-radius: 0.5em;
+	margin: 20px 2%;
+	padding: 0.5em;
+}
+
+#website h2
+{
+	font-size:34px;
+	text-align:center;
+	text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+}
+
+#website p {text-align:justify; padding:1em;}

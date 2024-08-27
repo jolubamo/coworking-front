@@ -1,0 +1,7 @@
+<div class="container d-flex justify-content-center align-items-center h-75">
+  <form [formGroup]="miFormulario" (ngSubmit)="enviarFormulario()">
+    <h1>Código de Ingreso</h1>
+    <input type="text" formControlName="codigo" placeholder="Ingresa el código">
+    <button class="btn" type="submit" [disabled]="miFormulario.invalid">Enviar</button>
+  </form>
+</div>

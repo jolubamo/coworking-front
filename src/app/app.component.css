@@ -1,0 +1,34 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+  
+  .example-sidenav-container {
+    flex: 1;
+  }
+  
+  .example-spacer {
+    flex: 1 1 auto;
+  } 
+  
+  .example-toolbar {
+    background-color: white;
+    border-bottom-color: #F07319;
+    border-width: 4px;
+    border-style: solid;
+  }
+  
+  .example-sidenav-container {
+    border-top: #F07319 4px;
+  }
+  
+  .mat-icon {
+    color: black;
+  }
+  
+  

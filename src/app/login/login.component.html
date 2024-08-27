@@ -1,0 +1,32 @@
+<div id="contenedor">
+            
+    <div id="contenedorcentrado">
+        <div id="login">
+            <form [formGroup]="form">
+                <br>
+                <div>
+                    <mat-form-field>
+                        <mat-label>Usuario</mat-label>
+                        <input matInput formControlName="usuario" #message maxlength="100" placeholder="Usuario">
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                        <mat-label>Contraseña</mat-label>
+                        <input matInput formControlName="clave" #message maxlength="100" placeholder="Contraseña"
+                            type="password">
+                    </mat-form-field>
+                    <button [disabled]="!form.valid" (click)='onLoginClick()'>
+                        <mat-icon>send</mat-icon>
+                    </button>
+    
+                </div>
+            </form>
+            
+        </div>
+        <div id="derecho">
+            <div class="titulo">
+                Bienvenido
+            </div>
+        </div>
+    </div>
+</div>

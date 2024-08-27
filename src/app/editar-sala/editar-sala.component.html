@@ -1,0 +1,45 @@
+<form class="form" [formGroup]="form">
+  <div fxLayout="row" fxLayoutAlign="space-around center">
+    <mat-form-field appearance="fill">
+      <mat-label>Disponibilidad</mat-label>
+      <mat-select formControlName="horarios" multiple>
+        <mat-option *ngFor="let horario of horarios" [value]="horario.id">{{horario.titulo}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" #message maxlength="45" placeholder="Nombre">
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-around center">
+    <mat-form-field appearance="fill">
+      <mat-label>Capacidad</mat-label>
+      <input matInput formControlName="capacidad" type="number" #message maxlength="45" placeholder="Capacidad">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Equipamiento</mat-label>
+      <input matInput formControlName="equipamiento" #message maxlength="45" placeholder="Equipamiento">
+    </mat-form-field>
+  </div>
+  <div fxLayout="row" fxLayoutAlign="space-around center">
+    <mat-form-field appearance="fill">
+      <mat-label>Estado</mat-label>
+      <mat-select formControlName="estado">
+        <mat-option>None</mat-option>
+        <mat-option [value]="p.id" *ngFor="let p of estados"> {{p.nombre}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Tipo</mat-label>
+      <mat-select formControlName="tipo">
+        <mat-option>None</mat-option>
+        <mat-option [value]="p.id" *ngFor="let p of lstTipos"> {{p.nombre}} </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</form>
+<button (click)="clickAceptar()">{{boton}}</button>
+<ngx-spinner type="ball-scale-multiple"></ngx-spinner>
