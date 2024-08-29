@@ -23,6 +23,7 @@ import { ToastrService } from 'ngx-toastr';
 export class MisReservasComponent implements OnInit {
 
   lstTipos: TipoSala[];
+  today: Date = new Date();
 
   displayedColumns: string[] = ['sala', 'fecha', 'reservar','calendario'];
   dataSource = new MatTableDataSource<Reserva>([]);
@@ -35,16 +36,17 @@ export class MisReservasComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private reservaService: ReservaService,
-    private salaService: SalaService,
-    private tipoSalaService: TipoSalaService,
-    private spinner: NgxSpinnerService,
     private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
     this.cargarReservas();
   }
-
+  isDateInTheFuture(fecha: string): boolean {
+    const elementDate = new Date(fecha).setHours(0, 0, 0, 0);
+    const todayDate = new Date().setHours(0, 0, 0, 0);
+    return elementDate < todayDate;
+  }
   openDialog(element:Reserva) {
     this.events = [];
     element.horas.forEach((hora: Horario) => {

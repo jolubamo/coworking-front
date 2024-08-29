@@ -32,4 +32,19 @@ constructor(private http: HttpClient) { }
   eliminar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.URL}/${id}`);
   }
+
+  PDFTodasLasReservas() {
+    return this.http.get<Blob>
+    (`${this.URL}/pdf-todas`, { responseType: 'blob' as 'json' })
+  }
+
+  listarPorFechas(fechaInicio: string, fechaFin: string): Observable<Reserva[]> {
+      return this.http.get<Reserva[]>
+      (`${this.URL}/entre-fechas/${fechaInicio}/${fechaFin}`)
+    }
+
+    PDFReservasEntreFechas(fechaInicio: string, fechaFin: string) {
+      return this.http.get<Blob>
+      (`${this.URL}/pdf-entre-fechas/${fechaInicio}/${fechaFin}`, { responseType: 'blob' as 'json' })
+    }
 }

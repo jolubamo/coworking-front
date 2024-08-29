@@ -22,6 +22,12 @@ export class SalaService {
   getSalasPorTipoSala(idTipoSala: number): Observable<Sala[]> {
     return this.http.get<Sala[]>(`${this.URL}/tipo-sala/${idTipoSala}`);
   }
+  getSalasPorCapacidad(capacidad: number): Observable<Sala[]> {
+    return this.http.get<Sala[]>(`${this.URL}/capacidad/${capacidad}`);
+  }
+  getSalasPorTipoSalaCapacidad(idTipoSala: number, capacidad: number): Observable<Sala[]> {
+    return this.http.get<Sala[]>(`${this.URL}/tipo-sala-capacidad/${idTipoSala}/${capacidad}`);
+  }
 
   eliminar(id: number): Observable<void> {
     return this.http.delete<void>(`${this.URL}/${id}`);

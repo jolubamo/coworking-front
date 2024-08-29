@@ -1,11 +1,17 @@
-<mat-form-field>
-    <mat-label>Tipo Sala</mat-label>
-    <mat-select formControlName="medico">
-        <mat-option (click)="click(0)">None</mat-option>
-        <mat-option [value]="p.id" (click)="click(p.id)" *ngFor="let p of lstTipos"> {{p.nombre}} </mat-option>
-    </mat-select>
-</mat-form-field>
-
+<div class="mb-3 row d-flex justify-content-center" [formGroup]="form">
+    <mat-form-field>
+        <mat-label>Tipo Sala</mat-label>
+        <mat-select formControlName="tipo">
+            <mat-option (click)="listar()" [value] = 0>None</mat-option>
+            <mat-option [value]="p.id" (click)="listar()" *ngFor="let p of lstTipos"> {{p.nombre}} </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Capacidad</mat-label>
+        <input matInput #message formControlName="capacidad" type="number" maxlength="45" placeholder="Capacidad"
+            (keyup)="listar()" (change)="listar()">
+    </mat-form-field>
+</div>
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource">
 

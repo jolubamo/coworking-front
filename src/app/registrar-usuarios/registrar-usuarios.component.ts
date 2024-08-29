@@ -106,7 +106,6 @@ export class RegistrarUsuariosComponent implements OnInit {
       })
     } else {
       if (!this.editar) {
-        console.log(usuarioRol);
         this.registrar(usuarioRol);
       }
     }

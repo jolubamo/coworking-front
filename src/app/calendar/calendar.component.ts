@@ -26,7 +26,6 @@ export class CalendarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(this.data.propio ? this.data.propio : new Date());
     this.options = {
       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
       defaulDate: this.data.propio ? this.data.propio : new Date(),

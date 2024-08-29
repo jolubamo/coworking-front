@@ -74,7 +74,6 @@ export class ReservarModalComponent implements OnInit {
     reserva.horas = concatenado;
 
     this.reservaService.crear(reserva).subscribe(data=>{
-      console.log("se creo el id " + data);
     })
   }
 }

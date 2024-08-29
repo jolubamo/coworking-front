@@ -23,6 +23,7 @@ export class VerificationComponent implements OnInit {
 
   ngOnInit() {
     if(!localStorage.getItem('usuario') && !sessionStorage.getItem(environment.tokenName)){
+      
       this.router.navigateByUrl('/login');
     }
     if(localStorage.getItem('usuario') && sessionStorage.getItem(environment.tokenName)){

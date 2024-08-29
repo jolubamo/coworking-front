@@ -12,6 +12,7 @@ import { ReservarModalComponent } from '../reservar-modal/reservar-modal.compone
 import { NgxSpinnerService } from 'ngx-spinner';
 import { TipoSalaService } from '../services/tipo-sala.service';
 import { TipoSala } from '../models/tipo-sala';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-reserva',
@@ -21,8 +22,8 @@ import { TipoSala } from '../models/tipo-sala';
 export class ReservaComponent implements OnInit {
 
   lstTipos: TipoSala[];
-
-  displayedColumns: string[] = ['nombre', 'tipo','capacidad', 'equipamiento', 'reservar','calendario'];
+  form: FormGroup;
+  displayedColumns: string[] = ['nombre', 'tipo', 'capacidad', 'equipamiento', 'reservar', 'calendario'];
   dataSource = new MatTableDataSource<Sala>([]);
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
@@ -34,15 +35,24 @@ export class ReservaComponent implements OnInit {
     private reservaService: ReservaService,
     private salaService: SalaService,
     private tipoSalaService: TipoSalaService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
     this.cargarSalas();
+    this.initForm();
     this.cargarTiposSalas();
   }
 
-  openDialog(id:any) {
+  private initForm(): void {
+    this.form = this.fb.group({
+      tipo: new FormControl(''),
+      capacidad: new FormControl('')
+    })
+  }
+
+  openDialog(id: any) {
     this.events = [];
     this.reservaService.getReservaPorSala(id).subscribe((data: Reserva[]) => {
       data.forEach((element: Reserva) => {
@@ -56,7 +66,7 @@ export class ReservaComponent implements OnInit {
           this.events.push(event);
         });
       });
-  
+
       const dialogRef = this.dialog.open(CalendarComponent, {
         height: '520px',
         width: '600px',
@@ -65,38 +75,66 @@ export class ReservaComponent implements OnInit {
     });
   }
 
-  click(element:any){
-    if(element == 0){
+  click(element: any) {
+    if (element == 0) {
       this.cargarSalas();
-    }else{
-      this.salaService.getSalasPorTipoSala(element).subscribe((data:Sala[])=>{
+    } else {
+      this.salaService.getSalasPorTipoSala(element).subscribe((data: Sala[]) => {
         this.dataSource = new MatTableDataSource<Sala>(data);
         this.paginator.firstPage();
-        this.dataSource.paginator=this.paginator;
+        this.dataSource.paginator = this.paginator;
       });
     }
   }
 
-  cargarTiposSalas():void{
-    this.tipoSalaService.getSalas().subscribe(data=>{
+  cargarTiposSalas(): void {
+    this.tipoSalaService.getSalas().subscribe(data => {
       this.lstTipos = data;
     })
   }
 
-  cargarSalas(): void{
-    this.salaService.getSalasActivas().subscribe((data:Sala[])=>{
+  cargarSalas(): void {
+    this.salaService.getSalasActivas().subscribe((data: Sala[]) => {
       this.dataSource = new MatTableDataSource<Sala>(data);
       this.paginator.firstPage();
-      this.dataSource.paginator=this.paginator;
+      this.dataSource.paginator = this.paginator;
     });
 
   }
 
-  openDialogReservar(element:Sala){
+  openDialogReservar(element: Sala) {
     const dialogRef = this.dialog.open(ReservarModalComponent, {
       height: '520px',
       width: '600px',
       data: element
     });
+  }
+
+  listar() {
+    if (this.form.get('tipo')?.value != '' && this.form.get('capacidad')?.value != '') {
+      this.salaService.getSalasPorTipoSalaCapacidad(this.form.get('tipo').value, this.form.get('capacidad').value).subscribe((data: Sala[]) => {
+        this.dataSource = new MatTableDataSource<Sala>(data);
+        this.paginator.firstPage();
+        this.dataSource.paginator = this.paginator;
+      });
+    } else {
+      if (this.form.get('capacidad')?.value != '') {
+        this.salaService.getSalasPorCapacidad(this.form.get('capacidad').value).subscribe((data: Sala[]) => {
+          this.dataSource = new MatTableDataSource<Sala>(data);
+          this.paginator.firstPage();
+          this.dataSource.paginator = this.paginator;
+        });
+      } else {
+        if (this.form.get('tipo').value == 0) {
+          this.cargarSalas();
+        } else {
+          this.salaService.getSalasPorTipoSala(this.form.get('tipo').value).subscribe((data: Sala[]) => {
+            this.dataSource = new MatTableDataSource<Sala>(data);
+            this.paginator.firstPage();
+            this.dataSource.paginator = this.paginator;
+          });
+        }
+      }
+    }
   }
 }

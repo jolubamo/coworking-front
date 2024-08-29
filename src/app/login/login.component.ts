@@ -46,11 +46,13 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginClick(): void {
+    this.spinner.show();
     this.loginService.login(this.form.get('usuario').value, this.form.get('clave').value).subscribe(res => {
       //sessionStorage.setItem(environment.tokenName, res.access_token);
       this.seguridadService.generarCodigo(res.access_token).subscribe(data=>{
         console.log(data);
         localStorage.setItem('usuario', this.form.get('usuario').value);
+        this,this.spinner.hide();
         this.pagina();
       },
       (error) => {

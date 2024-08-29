@@ -95,12 +95,10 @@ export class EditarSalaComponent implements OnInit {
     sala.equipamiento = this.form.get('equipamiento').value;
     if(this.boton == 'Editar'){
       sala.id = this.form.get('id').value;
-      console.log("aaa");
       this.salaService.modificar(sala).subscribe(data=>{
 
       }, err => this.mensajeError(err))
     }else{
-      console.log(sala);
       this.salaService.crear(sala).subscribe(data=>{
 
       }, err => this.mensajeError(err))
